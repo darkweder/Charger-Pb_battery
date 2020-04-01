@@ -2,7 +2,8 @@
 #include "PWM_A0_A1.h"
 
 
-
+	uint16_t Negative;
+	uint16_t Positive;
 
 void PWM_init (void)
 {
@@ -15,8 +16,8 @@ void PWM_init (void)
 //настраиваем таймер
 	TIM2->PSC  =PRESCALER;
 	TIM2->ARR  =CYCLE;
-	TIM2->CCR1 =DUTY1;
-	TIM2->CCR2 =DUTY2;
+	TIM2->CCR1 =Positive;
+	TIM2->CCR2 =Negative;
 //настройки ШИМа
   TIM2->CR1 |=TIM_CR1_CMS_1; //ВЫРАВНИВАНИЕ ПО ЦЕНТРУ,
   TIM2->CCMR1 |=TIM_CCMR1_OC1M_1|TIM_CCMR1_OC1M_2; // [110] ЭТО ПРЯМОЙ ШИМ НА КХАНАЛЕ А0
