@@ -19,7 +19,7 @@ void PWM_init (void)
 //	TIM2->CCR1 =Positive;
 //	TIM2->CCR2 =Negative;
 //настройки ШИМа
-  TIM2->CR1 |=TIM_CR1_CMS_0; //ВЫРАВНИВАНИЕ ПО ЦЕНТРУ,
+  TIM2->CR1 &=~TIM_CR1_CMS; //ВЫРАВНИВАНИЕ ПО ЦЕНТРУ,
   TIM2->CCMR1 |=TIM_CCMR1_OC1M_1|TIM_CCMR1_OC1M_2; // [110] ЭТО ПРЯМОЙ ШИМ НА КХАНАЛЕ А0
 	TIM2->CCMR1 |=TIM_CCMR1_OC2M; //[111] ЭТО ИНВЕРСНЫЙ ШИМ НА КХАНАЛЕ А1
 	TIM2->CCER |=TIM_CCER_CC1E|TIM_CCER_CC2E;
