@@ -5,9 +5,11 @@
 
  void TIM2_IRQHandler(void)
 {  
-   SET_BIT(GPIOC->BSRR,GPIO_BSRR_BR13);
+   TIM2->SR &=~TIM_SR_CC2IF;
+	 TIM2->SR &=~TIM_SR_UIF;
+	 GPIOC->ODR ^=GPIO_ODR_ODR13;
 	 delay_ms(100);
-   TIM2->SR &= ~TIM_SR_UIF;
+   
 }
 
 //прерывания*********************************************************************************************************
@@ -17,20 +19,21 @@ int main(){
 	RCC->APB2ENR |= RCC_APB2ENR_IOPCEN; // тактирование порта С
 	GPIOC->CRH |= GPIO_CRH_MODE13_1 ; //2МГц скорость порта на PC13
 	CLEAR_BIT(GPIOC->CRH, GPIO_CRH_CNF13); //обнуление битов CNF13
-	SET_BIT(GPIOC->BSRR,GPIO_BSRR_BS13); 
+	SET_BIT(GPIOC->BSRR,GPIO_BSRR_BR13); 
 	
 	
 	//прерывания
-	__enable_irq ();
-	NVIC_EnableIRQ(TIM2_IRQn);	
 	
-	TIM2->DIER |= TIM_DIER_UIE; //активировали прерывание от таймера2
-	//TIM2->DIER |=TIM_DIER_CC1IE;
-	//TIM2->SR|=TIM_SR_CC1IF;
+	NVIC_SetPriority (TIM2_IRQn, 5);
+	NVIC_EnableIRQ(TIM2_IRQn);	
+  
+	TIM2->DIER |= TIM_DIER_CC2IE|TIM_DIER_UIE; //активировали прерывание от таймера2 по 
+	TIM2->SR &=~TIM_SR_CC2IF;
+	TIM2->SR  &=~TIM_SR_UIF;
 	
 
 	while(1) {
-	SET_BIT(GPIOC->BSRR,GPIO_BSRR_BS13); 
+	
 	delay_ms(500);
 	PWM_init ();
 		Start_PWM;
