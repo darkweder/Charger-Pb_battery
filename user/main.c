@@ -5,11 +5,9 @@
 
  void TIM2_IRQHandler(void)
 {  
-   TIM2->SR &=~TIM_SR_CC2IF;
-	 TIM2->SR &=~TIM_SR_UIF;
-	 GPIOC->ODR ^=GPIO_ODR_ODR13;
-	 delay_ms(100);
-   
+   TIM2->SR &=~TIM_SR_CC1IF;
+	 //TIM2->SR &=~TIM_SR_UIF;
+	 GPIOC->ODR ^=GPIO_ODR_ODR13;  
 }
 
 //прерывания*********************************************************************************************************
@@ -21,25 +19,25 @@ int main(){
 	CLEAR_BIT(GPIOC->CRH, GPIO_CRH_CNF13); //обнуление битов CNF13
 	SET_BIT(GPIOC->BSRR,GPIO_BSRR_BR13); 
 	
-	
+	PWM_init ();
+	Start_PWM;
+	TIM2->PSC  = 3600;
+	WRITE_REG (TIM2->CCR1, 10000);
+	WRITE_REG (TIM2->CCR2, 19000);	
 	//прерывания
 	
-	NVIC_SetPriority (TIM2_IRQn, 5);
+	//NVIC_SetPriority (TIM2_IRQn, 5);
 	NVIC_EnableIRQ(TIM2_IRQn);	
   
-	TIM2->DIER |= TIM_DIER_CC2IE|TIM_DIER_UIE; //активировали прерывание от таймера2 по 
-	TIM2->SR &=~TIM_SR_CC2IF;
+	TIM2->DIER |= TIM_DIER_CC1IE; //активировали прерывание от таймера2 по 
+	TIM2->SR &=~TIM_SR_CC1IF;
 	TIM2->SR  &=~TIM_SR_UIF;
 	
 
 	while(1) {
 	
 	delay_ms(500);
-	PWM_init ();
-		Start_PWM;
-	TIM2->PSC  = 3600;
-	WRITE_REG (TIM2->CCR1, 10000);
-	WRITE_REG (TIM2->CCR2, 19000);		
+	
 	         }
 
           }
