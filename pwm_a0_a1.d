@@ -1,4 +1,4 @@
-.\pwm_a0_a1.o: pl\src\PWM_A0_A1.c
+.\pwm_a0_a1.o: pl\PWM_A0_A1.c
 .\pwm_a0_a1.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h
 .\pwm_a0_a1.o: .\RTE\_Target_1\RTE_Components.h
 .\pwm_a0_a1.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h
@@ -7,4 +7,4 @@
 .\pwm_a0_a1.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h
 .\pwm_a0_a1.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h
 .\pwm_a0_a1.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h
-.\pwm_a0_a1.o: .\pl\inc\PWM_A0_A1.h
+.\pwm_a0_a1.o: pl\PWM_A0_A1.h

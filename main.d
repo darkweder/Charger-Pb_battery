@@ -7,5 +7,7 @@
 .\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h
 .\main.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h
 .\main.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h
-.\main.o: .\pl\inc\delay_ms.h
-.\main.o: .\pl\inc\PWM_A0_A1.h
+.\main.o: .\pl\delay_ms.h
+.\main.o: .\pl\lcd.h
+.\main.o: .\pl\i2c_user.h
+.\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

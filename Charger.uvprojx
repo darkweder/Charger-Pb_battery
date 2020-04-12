@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>.\pl;.\user;.\pl\src;.\pl\inc</IncludePath>
+              <IncludePath>.\pl;.\user;.\pl\src;.\pl\inc;..\Charger</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -393,14 +393,29 @@
           <GroupName>pl</GroupName>
           <Files>
             <File>
-              <FileName>PWM_A0_A1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\pl\src\PWM_A0_A1.c</FilePath>
-            </File>
-            <File>
               <FileName>delay_ms.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\pl\inc\delay_ms.h</FilePath>
+              <FilePath>.\pl\delay_ms.h</FilePath>
+            </File>
+            <File>
+              <FileName>i2c_user.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\pl\i2c_user.c</FilePath>
+            </File>
+            <File>
+              <FileName>i2c_user.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\pl\i2c_user.h</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\pl\lcd.c</FilePath>
+            </File>
+            <File>
+              <FileName>lcd.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\pl\lcd.h</FilePath>
             </File>
           </Files>
         </Group>
