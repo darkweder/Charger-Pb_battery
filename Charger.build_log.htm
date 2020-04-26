@@ -31,11 +31,14 @@ assembling startup_stm32f10x_md.s...
 compiling lcd.c...
 compiling i2c_user.c...
 compiling main.c...
+user\main.c(139): warning:  #177-D: variable "i"  was declared but never referenced
+  	uint16_t ADC_A4, i;
+user\main.c: 1 warning, 0 errors
 compiling system_stm32f10x.c...
 linking...
-Program Size: Code=8028 RO-data=444 RW-data=40 ZI-data=1632  
+Program Size: Code=8280 RO-data=444 RW-data=40 ZI-data=1632  
 FromELF: creating hex file...
-".\Charger.axf" - 0 Error(s), 0 Warning(s).
+".\Charger.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -66,7 +69,7 @@ Package Vendor: Keil
       Source file:   Device\Source\system_stm32f10x.c
       Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

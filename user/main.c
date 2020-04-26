@@ -8,7 +8,7 @@ uint16_t ADC_A2, ADC_A3;
 
 //voids*********************************************************************************************************
 #define Start_PWM SET_BIT(TIM2->CR1,TIM_CR1_CEN)
-#define PRESCALER 179
+#define PRESCALER 1799
 #define CYCLE     200
 #define DUTY1     99
 #define DUTY2     189
@@ -54,6 +54,7 @@ void ADC_Init(void)
 	 
    GPIOA->CRL &= ~GPIO_CRL_CNF2;         //настраиваем вывод A2 для работы АЦП в режим аналогового входа 
    GPIOA->CRL &= ~GPIO_CRL_CNF3;         //настраиваем вывод A3 для работы АЦП в режим аналогового входа 
+	 GPIOA->CRL &= ~GPIO_CRL_CNF4;         //настраиваем вывод A4 для работы АЦП в режим аналогового входа
 	 
    ADC1->CR1 =0;
 	 ADC1->CR2 |=ADC_CR2_CAL;              //запуск калибровки, 1 — запустить калибровку, 
@@ -62,14 +63,21 @@ void ADC_Init(void)
 	
 	 ADC1->CR2 |=ADC_CR2_CONT;             //режим преобразования, 0 — однократный, 1 — непрерывный.
 	 ADC1->CR2 |=ADC_CR2_JEXTSEL;          //источника запуска инжектированных каналов JSWSTART
-	 ADC1->CR2 |=  ADC_CR2_JEXTTRIG;       //разр. внешний запуск инжектированной группы
+	 ADC1->CR2 |=ADC_CR2_JEXTTRIG;         //разр. внешний запуск инжектированной группы
+	 
+	 ADC1->CR2     =  ADC_CR2_EXTSEL;       //выбрать источником запуска разряд  SWSTART
+	 ADC1->CR2    |=  ADC_CR2_EXTTRIG;      //разр. внешний запуск регулярного канала
+	 ADC1->CR2    |=  ADC_CR2_CONT;         //режим непрерывного преобразования 
+	 ADC1->SQR3    =  4;                    //загрузить номер канала
+	 ADC1->CR2    |=  ADC_CR2_ADON;         //включить АЦП
+ 	 ADC1->CR2    |=  ADC_CR2_SWSTART;      //запустить процес преобразования
 	 
 	 ADC1->CR1 |= ADC_CR1_JEOCIE;          //разрешение прерывания по окончании инжектированного преобразования	 
 	 ADC1->CR1 |= ADC_CR1_JAUTO;           //непрерывное преобразование инжектированных каналов
 	 ADC1->CR1 |= ADC_CR1_SCAN;            //режим сканирования (т.е. несколько каналов)
 	 
-	 ADC1->SMPR2 |=ADC_SMPR2_SMP2;       //время между выборками 235,5циклов А2
-	 ADC1->SMPR2 |=ADC_SMPR2_SMP3;       //время между выборками 239,5циклов А3
+	 ADC1->SMPR2 |=ADC_SMPR2_SMP2_1 | ADC_SMPR2_SMP2_2;       //время между выборками 71,5циклов А2
+	 ADC1->SMPR2 |=ADC_SMPR2_SMP3_1 | ADC_SMPR2_SMP3_1;       //время между выборками 71,5циклов А3
 	 
 	 ADC1->JSQR |=ADC_JSQR_JL_0;           //длина  последовательности 2 преобразования
 	 ADC1->JSQR |=ADC_JSQR_JSQ3_1;         //Номер секции JSQx определяет номер в группе инжектированных преобразований,
@@ -87,9 +95,9 @@ void ADC_Init(void)
  void TIM2_IRQHandler(void)
 {  
    TIM2->SR &=~TIM_SR_CC1IF;
-	 //ADC1->CR2    |=  ADC_CR2_JSWSTART;     //запустить процес преобразования
-	 //GPIOC->ODR |=GPIO_ODR_ODR13;
-	 //ADC1->CR2 |=ADC_CR2_ADON;
+	 ADC1->CR2    |=  ADC_CR2_JSWSTART;     //запустить процес преобразования
+	 GPIOC->ODR ^=GPIO_ODR_ODR13;
+	 
 }
 
 void ADC1_2_IRQHandler(void)
@@ -99,7 +107,7 @@ void ADC1_2_IRQHandler(void)
 	 GPIOC->ODR ^=GPIO_ODR_ODR13;
 	 ADC_A2 = ADC1->JDR1;
 	 ADC_A3 = ADC1->JDR2;
-	 //ADC1->CR2 &=~ADC_CR2_ADON;
+	 ADC1->CR2 &=~ADC_CR2_JSWSTART;     //остановить процес преобразования
 	}
 }
 
@@ -127,20 +135,31 @@ int main(){
 //константы*********************************************************************************************************
   
   char str1[10];
+	char str2[10];
+	uint16_t ADC_A4, i;
   
 //константы*********************************************************************************************************
+	LCD_SetPos(1,0);
+  LCD_String("Charger 12V Pb ");
+	LCD_SetPos(0,1);
+  LCD_String("Vr.01 darkweder");
+  delay_ms(3000);
 	
-
+	
 	while(1) {
 	
-  LCD_SetPos(0,0);
-  LCD_String("String 1");
-  LCD_SetPos(0,1);
-  
-    sprintf(str1,"%3.2f %3.2f", ADC_A3/(float)4095*3.305, ADC_A2/(float)4095*3.305);
+	ADC_A4 = ADC1->DR;
+	LCD_Clear();
+	  LCD_SetPos(10,1);
+    sprintf(str1,"%3.2f", ADC_A4/(float)4095*3.305);
     LCD_String(str1);
-		LCD_SetPos(8,1);
-    delay_ms(40);
+		
+		LCD_SetPos(0,1);
+		sprintf(str2,"%3.2f %3.2f", ADC_A3/(float)4095*3.305, ADC_A2/(float)4095*3.305);
+    LCD_String(str2);
+		
+		
+    delay_ms(35);
    
 	
 	         }
