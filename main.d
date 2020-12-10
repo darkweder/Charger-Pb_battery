@@ -11,3 +11,7 @@
 .\main.o: .\pl\lcd.h
 .\main.o: .\pl\i2c_user.h
 .\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\main.o: .\pl\pwm.h
+.\main.o: .\pl\adc.h
+.\main.o: .\pl\encoder.h
+.\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

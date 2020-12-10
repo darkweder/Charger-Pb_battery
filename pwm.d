@@ -1,0 +1,10 @@
+.\pwm.o: pl\pwm.c
+.\pwm.o: pl\pwm.h
+.\pwm.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h
+.\pwm.o: .\RTE\_Target_1\RTE_Components.h
+.\pwm.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h
+.\pwm.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\pwm.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h
+.\pwm.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h
+.\pwm.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h
+.\pwm.o: C:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h
